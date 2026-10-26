@@ -1,0 +1,30 @@
+{
+  "about": "Apa ni?",
+
+  "title": "Nak <i>ambik</i> mana? <br/>Macam-macam ada!",
+  "subtitle": "Kalau taktau pilih, <i>ambik</i> semua! <br/>",
+  "suggestion": "✨ Jangan takut, kalau nak cadang apa-apa bagitau!",
+
+  "search_placeholder": "Cari apa nak ambik...",
+
+  "join_waitlist_title": "Nak try?",
+  "join_waitlist_subtitle": "Dah siap nanti je awak orang first saya bagitau!",
+  "join_waitlist_button": "Nak!!",
+
+  "try_button": "Ambik Try Test! 🚀",
+  "try_button_title": "Cuba Sekarang",
+  "try_button_subtitle": "Cuba aplikasi sekarang",
+
+  "waitlist": {
+    "invalid_email": "Sila masukkan email yang sah",
+    "verify_human": "Sila sahkan anda adalah manusia",
+    "check_failed": "Pemeriksaan gagal: ",
+    "already_joined": "Anda sudah berada dalam senarai menunggu 🎉",
+    "join_failed": "Gagal menyertai: ",
+    "join_success": "🎉 Anda telah menyertai senarai menunggu!",
+    "sending": "Menghantar...",
+    "email_placeholder": "email@anda.com",
+    "thank_you_top": "Terima kasih daun keladi",
+    "thank_you_bottom": "Nantikan berita gembira! 🎉"
+  }
+}

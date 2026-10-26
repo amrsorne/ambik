@@ -1,0 +1,30 @@
+{
+  "about": "What's this about?",
+
+  "title": "Unsure? Just <i>ambik</i>! 'em allll!",
+  "subtitle": "If you don't know what to choose, <i>ambik</i> everything!<br/>",
+  "suggestion": "✨ Fret not, feel free to suggest anything!",
+
+  "search_placeholder": "What do you want to pick?",
+
+  "join_waitlist_title": "Stay Updated",
+  "join_waitlist_subtitle": "Join our waitlist for early access",
+  "join_waitlist_button": "Join",
+
+  "try_button": "Ambik! 🚀",
+  "try_button_title": "Cuba try test",
+  "try_button_subtitle": "Cuba? Try? Test?",
+
+  "waitlist": {
+    "invalid_email": "Please enter a valid email",
+    "verify_human": "Please verify you are human",
+    "check_failed": "Check failed: ",
+    "already_joined": "You're already on the waitlist 🎉",
+    "join_failed": "Join failed: ",
+    "join_success": "🎉 You've joined the waitlist!",
+    "sending": "Sending...",
+    "email_placeholder": "your@email.com",
+    "thank_you_top": "Thank you for the submission!",
+    "thank_you_bottom": "Let's wait for the good news 🎉"
+  }
+}
