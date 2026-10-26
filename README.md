@@ -2,6 +2,8 @@
 
 Side-project hub for [ambik.link](https://ambik.link) — pnpm monorepo with Turborepo, TanStack Start on Cloudflare Workers, and shared project catalog.
 
+**Deploys:** push to **`main`** on GitLab → CI runs tests → auto-deploys Worker **`ambik-web`**. See [docs/GITLAB_DEPLOY.md](docs/GITLAB_DEPLOY.md).
+
 ## Structure
 
 - `apps/web` — apex site (hub UI + path redirects)
@@ -10,7 +12,7 @@ Side-project hub for [ambik.link](https://ambik.link) — pnpm monorepo with Tur
 ## Requirements
 
 - Node.js 22+
-- pnpm 10 (`corepack enable`)
+- pnpm 10
 
 ## Local development
 
@@ -24,7 +26,7 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Path redirects (`/mybajet` → `mybajet.ambik.link`) apply when the request hostname is `ambik.link`. For local testing, use preview deploy or temporarily set hostname via Workers preview URL.
+Path redirects (`/mybajet` → `mybajet.ambik.link`) apply when the request hostname is `ambik.link`.
 
 ## Scripts
 
@@ -33,20 +35,8 @@ Path redirects (`/mybajet` → `mybajet.ambik.link`) apply when the request host
 | `pnpm dev` | Start `apps/web` dev server |
 | `pnpm build` | Build all packages |
 | `pnpm test` | Run catalog redirect tests |
-| `pnpm deploy` | Build and `wrangler deploy` web app |
 
-## Cloudflare cutover (replace v1 Pages on ambik.link)
-
-1. Deploy to Workers preview: `pnpm deploy` (or GitLab manual **deploy_production** job).
-2. Verify on `*.workers.dev`: home page, `/mybajet` 301, `/assets/*` not redirected.
-3. In Cloudflare dashboard, attach custom domain **ambik.link** (and **www** if used) to Worker **ambik-web**.
-4. Remove **ambik.link** from the old Pages project (defaulter) so only the Worker serves apex.
-5. Set production secrets/vars: Supabase and Turnstile keys (same names as v1 `VITE_*`).
-
-### GitLab CI variables
-
-- `CLOUDFLARE_API_TOKEN` — Workers deploy token
-- `CLOUDFLARE_ACCOUNT_ID` — optional if wrangler cannot infer account
+Production deploy is via **GitLab CI** on `main`, not a root `pnpm deploy` in day-to-day workflow.
 
 ## License
 

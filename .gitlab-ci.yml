@@ -1,14 +1,24 @@
+# GitLab → Cloudflare Workers (ambik-web)
+# Docs: docs/GITLAB_DEPLOY.md
+
 stages:
   - test
   - deploy
 
 variables:
   PNPM_VERSION: '10.12.1'
+  PNPM_STORE_DIR: '$CI_PROJECT_DIR/.pnpm-store'
 
 .pnpm_setup: &pnpm_setup
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
   before_script:
-    - corepack enable
-    - corepack prepare pnpm@${PNPM_VERSION} --activate
+    - npm install -g pnpm@${PNPM_VERSION}
+    - pnpm config set store-dir ${PNPM_STORE_DIR}
     - pnpm install --frozen-lockfile
 
 lint_and_test:
@@ -26,16 +36,24 @@ deploy_production:
   image: node:22-bookworm
   <<: *pnpm_setup
   script:
+    - |
+      if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+        echo "Missing CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID. See docs/GITLAB_DEPLOY.md"
+        exit 1
+      fi
+    # VITE_* must be set in GitLab CI/CD variables (embedded at build time)
     - pnpm turbo build --filter=@ambik/web
-    - cd apps/web && pnpm exec wrangler deploy
+    - cd apps/web && pnpm exec wrangler deploy --message "gitlab:${CI_COMMIT_SHORT_SHA} pipeline:${CI_PIPELINE_ID}"
   environment:
     name: production
     url: https://ambik.link
+  resource_group: production
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: manual
+      when: on_success
   needs:
-    - lint_and_test
+    - job: lint_and_test
+      artifacts: false
 
 include:
   - template: Security/SAST.gitlab-ci.yml
