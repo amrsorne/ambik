@@ -44,7 +44,7 @@ export function Search({ onSelect }: SearchProps): JSX.Element {
         onFocus={() => setIsSearchFocused(true)}
         onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
         placeholder={t('search_placeholder')}
-        className="w-full px-6 py-3 rounded-full text-lg bg-white/80 backdrop-blur-xs border border-purple-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-hidden shadow-lg transition-all"
+        className="w-full rounded-full border border-[var(--color-border-soft)] bg-white/90 px-6 py-3 text-base shadow-sm outline-hidden transition-all focus:border-[var(--color-brand)] focus:ring-2 focus:ring-indigo-200 sm:text-lg"
       />
 
       {isSearchFocused && searchTerm && (

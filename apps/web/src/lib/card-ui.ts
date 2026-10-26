@@ -27,6 +27,7 @@ export interface FloatingCardProps {
   value: string
   description?: string
   className?: string
+  index?: number
   status?: 'Active' | 'Inactive'
   icon: IconName
   link: string

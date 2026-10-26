@@ -1,6 +1,15 @@
 import type React from 'react'
 import { iconMap, type FloatingCardProps } from '../lib/card-ui'
 
+const floatOffset = (index: number) => {
+  const n = index + 1
+  return {
+    '--tx': `${(n % 5) - 2}px`,
+    '--ty': `${((n * 3) % 7) - 3}px`,
+    '--rot': `${(((n * 7) % 11) - 5) / 10}deg`,
+  } as React.CSSProperties
+}
+
 const FloatingCard: React.FC<FloatingCardProps> = ({
   title,
   value,
@@ -11,51 +20,54 @@ const FloatingCard: React.FC<FloatingCardProps> = ({
   img,
   onClick,
   status = 'Inactive',
+  index = 0,
 }) => {
   const Icon = iconMap[icon]
-
-  const baseClasses = 'w-full backdrop-blur-lg rounded-lg p-4 shadow-lg'
-
-  const randomFloat = () => {
-    const tx = `${Math.floor(Math.random() * 13 - 7)}px`
-    const ty = `${Math.floor(Math.random() * 12 - 8)}px`
-    const rot = `${(Math.random() * 1.5 - 1).toFixed(1)}deg`
-
-    return {
-      '--tx': tx,
-      '--ty': ty,
-      '--rot': rot,
-    } as React.CSSProperties
-  }
-
-  const bgImage = img[0]
-    ? `linear-gradient(to right, rgba(255, 255, 255, 0.9) 20%, rgba(255, 255, 255, 0.2) 90%, transparent), url(${img[0]}) no-repeat center / cover`
-    : 'linear-gradient(to right, rgba(255, 255, 255, 0.9) 20%, rgba(255, 255, 255, 0.95) 90%)'
+  const isActive = status === 'Active'
+  const preview = img[0]
 
   return (
-    <div
-      className={`${baseClasses} ${className} animate-float cards cursor-pointer`}
-      style={{
-        ...randomFloat(),
-        background: bgImage,
-      }}
+    <button
+      type="button"
+      className={`group relative flex min-h-[6.25rem] w-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-[var(--color-border-soft)] bg-[var(--color-surface-elevated)]/90 p-4 text-left shadow-sm transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand)] motion-safe:animate-float ${className}`}
+      style={floatOffset(index)}
       onClick={() => onClick(title, value, description, link, img)}
     >
-      <div className="flex items-center justify-between mb-2">
-        <h3
-          className={`text-sm  ${status === 'Active' ? 'text-blue-500' : ''}`}
+      {preview ? (
+        <img
+          src={preview}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="pointer-events-none absolute -bottom-3 -right-3 h-24 w-24 rounded-xl object-cover opacity-35 ring-1 ring-white/80 transition-opacity duration-200 group-hover:opacity-50 sm:h-28 sm:w-28"
+        />
+      ) : (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-4 -right-4 h-24 w-24 rounded-full bg-linear-to-br from-indigo-100 to-violet-200 opacity-80"
+        />
+      )}
+
+      <div className="relative z-10 flex items-start justify-between gap-2 pr-16">
+        <p
+          className={`line-clamp-2 text-xs font-medium ${isActive ? 'text-[var(--color-brand-strong)]' : 'text-[var(--color-ink-muted)]'}`}
         >
           {value}
-        </h3>
-        <Icon className="w-4 h-4 text-purple-500" />
+        </p>
+        <Icon
+          className="h-4 w-4 shrink-0 text-[var(--color-brand)]"
+          aria-hidden
+        />
       </div>
+
       <p
-        className={`text-xl
-        ${status === 'Active' ? 'font-semibold bg-gradient-to-r from-purple-800 to-purple-400/50 text-transparent bg-clip-text' : ''}`}
+        className={`relative z-10 mt-2 line-clamp-2 text-base font-semibold leading-snug sm:text-lg ${
+          isActive ? 'text-[var(--color-brand-strong)]' : 'text-[var(--color-ink)]'
+        }`}
       >
         {title}
       </p>
-    </div>
+    </button>
   )
 }
 

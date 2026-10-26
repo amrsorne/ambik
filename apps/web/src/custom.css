@@ -1,5 +1,3 @@
-@import url('tailwindcss');
-
 .shine-effect {
   --stripes: repeating-linear-gradient(
     100deg,

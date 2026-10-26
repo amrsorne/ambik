@@ -26,49 +26,53 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, card }) => {
   }
 
   useEffect(() => {
-    setSelectedImage(card.img[0])
+    if (isOpen) {
+      setSelectedImage(card.img[0])
+    }
   }, [card.img, isOpen])
+
+  if (!isOpen) {
+    return null
+  }
 
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center bg-black/50 transition-opacity
-     duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 transition-opacity duration-300"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="project-modal-title"
     >
       <div
-        className={`${baseClasses} m-5 md:w-[400px] overflow-hidden
-          transition-transform duration-300 transform ${isOpen ? 'scale-100' : 'scale-95'} relative`}
+        className={`${baseClasses} relative max-h-[90dvh] w-full max-w-md overflow-y-auto transition-transform duration-300`}
       >
         <div className="flex flex-col h-full">
           <div className="flex-1">
             <div className="flex justify-between">
-              <h2 className="text-xl font-bold pt-5">{card.title}</h2>
+              <h2 id="project-modal-title" className="pt-2 text-xl font-bold">
+                {card.title}
+              </h2>
               <button
+                type="button"
                 onClick={onClose}
-                className="text-xs text-gray-100 bg-red-400 px-2 rounded-lg h-8"
+                className="h-9 rounded-lg bg-red-500 px-3 text-sm font-medium text-white transition-colors hover:bg-red-600"
               >
-                Close [x]
+                Close
               </button>
             </div>
             <p className="text-xs">Status: {card.value}</p>
             <p className="text-sm my-1">{card.description}</p>
 
             <div className="flex flex-col mb-2">
-              <div className="w-full max-h-60">
-                {selectedImage ? (
+              <div className="aspect-video w-full overflow-hidden rounded-lg bg-slate-100">
+                {selectedImage || card.img[0] ? (
                   <img
-                    src={selectedImage}
-                    alt="Preview"
-                    className="w-full h-full object-cover"
-                  />
-                ) : card.img.length > 0 ? (
-                  <img
-                    src={card.img[0]}
-                    alt="Preview"
-                    className="w-full h-full object-cover"
+                    src={selectedImage ?? card.img[0]}
+                    alt={`${card.title} preview`}
+                    className="h-full w-full object-cover"
                   />
                 ) : (
-                  <div className="my-30 w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
-                    <p>No Image Available</p>
+                  <div className="flex h-full min-h-40 items-center justify-center text-sm text-slate-500">
+                    No image available
                   </div>
                 )}
               </div>
