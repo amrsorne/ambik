@@ -21,6 +21,7 @@ export const links = {
   ketasewa: { service: 'ketasewa', url: 'https://ketasewa.ambik.link' },
   ragdolls: { service: 'ragdolls', url: 'https://ragdolls.ambik.link' },
   munchiq: { service: 'munchiq', url: 'https://munchiq.ambik.link' },
+  congkak: { service: 'congkak', url: 'https://congkak.ambik.link' },
 } as const satisfies Record<string, LinkEntry>
 
 export type LinkSlug = keyof typeof links

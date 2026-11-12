@@ -41,6 +41,12 @@ describe('resolvePathRedirect', () => {
     expect(resolvePathRedirect('/logo.svg', '', 'ambik.link')).toBeNull()
   })
 
+  it('redirects /congkak to the congkak worker', () => {
+    expect(resolvePathRedirect('/congkak', '', 'ambik.link')).toBe(
+      'https://congkak.ambik.link',
+    )
+  })
+
   it('returns null for unknown slug', () => {
     expect(resolvePathRedirect('/not-a-project', '', 'ambik.link')).toBeNull()
   })

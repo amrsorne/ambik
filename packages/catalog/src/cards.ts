@@ -112,4 +112,14 @@ export const cards: Card[] = [
     link: links.munchiq.url,
     status: 'Active',
   },
+  {
+    title: 'Congkak',
+    value: 'Live!',
+    description: 'Classic Malaysian congkak board game in the browser.',
+    icon: 'star',
+    service: links.congkak.service,
+    img: [],
+    link: links.congkak.url,
+    status: 'Active',
+  },
 ]
