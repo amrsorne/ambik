@@ -25,7 +25,12 @@ function PrivacyPage() {
         <p>
           When you join a waitlist or submit a form on a linked product, we may collect your
           email address and optional details you provide. We also receive standard server and
-          analytics logs to keep the service reliable and secure.
+          analytics logs to keep the service reliable and secure. Our public{' '}
+          <a href="/stats" className="text-[var(--color-brand-strong)] underline">
+            stats page
+          </a>{' '}
+          shows only aggregate counts (for example waitlist totals and country-level
+          hub traffic), not individual signups or email addresses.
         </p>
       </section>
       <section className="space-y-2">

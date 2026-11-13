@@ -3,9 +3,20 @@
   "name": "ambik-web",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry",
+  "main": "src/server.ts",
   "observability": {
     "enabled": true
   },
-  "vars": {}
+  "vars": {},
+  "d1_databases": [
+    {
+      "binding": "STATS_DB",
+      "database_name": "ambik-stats",
+      "database_id": "c492e682-6336-4b37-a4a3-c579dd0c89f5",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "triggers": {
+    "crons": ["0 16 * * *"]
+  }
 }

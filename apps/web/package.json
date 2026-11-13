@@ -12,7 +12,9 @@
     "preview": "vite preview",
     "deploy": "pnpm run build && wrangler deploy",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest run",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
     "@ambik/catalog": "workspace:*",
@@ -41,6 +43,8 @@
     "eslint": "^9.21.0",
     "typescript": "^6.0.2",
     "vite": "^8.0.0",
-    "wrangler": "^4.70.0"
+    "wrangler": "^4.70.0",
+    "@cloudflare/workers-types": "^4.20250528.0",
+    "vitest": "^3.2.4"
   }
 }
