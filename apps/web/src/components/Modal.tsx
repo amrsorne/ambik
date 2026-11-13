@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import type { Card } from '../lib/card-ui'
+import { DEFAULT_CARD_IMAGE } from '../constants/images'
+import { useResolvedCardImage } from '../hooks/useResolvedCardImage'
 import Waitlist from './Waitlist'
 
 interface ModalProps {
@@ -12,9 +14,8 @@ interface ModalProps {
 const baseClasses = 'bg-white/80 backdrop-blur-lg rounded-lg p-4 shadow-lg'
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, card }) => {
-  const [selectedImage, setSelectedImage] = useState<string | undefined>(
-    undefined,
-  )
+  const fallbackImage = useResolvedCardImage(card.img)
+  const [selectedImage, setSelectedImage] = useState(fallbackImage)
   const [src, setSrc] = useState('')
 
   useEffect(() => {
@@ -27,9 +28,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, card }) => {
 
   useEffect(() => {
     if (isOpen) {
-      setSelectedImage(card.img[0])
+      setSelectedImage(fallbackImage)
     }
-  }, [card.img, isOpen])
+  }, [card.img, fallbackImage, isOpen])
 
   if (!isOpen) {
     return null
@@ -64,29 +65,38 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, card }) => {
 
             <div className="flex flex-col mb-2">
               <div className="aspect-video w-full overflow-hidden rounded-lg bg-slate-100">
-                {selectedImage || card.img[0] ? (
-                  <img
-                    src={selectedImage ?? card.img[0]}
-                    alt={`${card.title} preview`}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-full min-h-40 items-center justify-center text-sm text-slate-500">
-                    No image available
-                  </div>
-                )}
+                <img
+                  src={selectedImage}
+                  alt={`${card.title} preview`}
+                  className="h-full w-full object-cover"
+                  onError={(event) => {
+                    event.currentTarget.onerror = null
+                    event.currentTarget.src = DEFAULT_CARD_IMAGE
+                  }}
+                />
               </div>
-              <div className="grid grid-cols-4 gap-2 mt-4">
-                {card.img.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    alt={`Thumbnail ${index + 1}`}
-                    className="w-12 h-12 object-cover"
-                    onClick={() => handleImageSelect(image)}
-                  />
-                ))}
-              </div>
+              {card.img.length > 0 && (
+                <div className="mt-4 grid grid-cols-4 gap-2">
+                  {card.img.map((image, index) => (
+                    <button
+                      type="button"
+                      key={index}
+                      className="rounded border-0 p-0"
+                      onClick={() => handleImageSelect(image)}
+                    >
+                      <img
+                        src={image}
+                        alt={`Thumbnail ${index + 1}`}
+                        className="h-12 w-12 object-cover"
+                        onError={(event) => {
+                          event.currentTarget.onerror = null
+                          event.currentTarget.src = DEFAULT_CARD_IMAGE
+                        }}
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <Waitlist url={card.link} src={src} service={card.service} />

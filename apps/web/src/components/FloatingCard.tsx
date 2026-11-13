@@ -1,4 +1,6 @@
 import type React from 'react'
+import { DEFAULT_CARD_IMAGE } from '../constants/images'
+import { useResolvedCardImage } from '../hooks/useResolvedCardImage'
 import { iconMap, type FloatingCardProps } from '../lib/card-ui'
 
 const floatOffset = (index: number) => {
@@ -24,7 +26,7 @@ const FloatingCard: React.FC<FloatingCardProps> = ({
 }) => {
   const Icon = iconMap[icon]
   const isActive = status === 'Active'
-  const preview = img[0]
+  const preview = useResolvedCardImage(img)
 
   return (
     <button
@@ -33,20 +35,17 @@ const FloatingCard: React.FC<FloatingCardProps> = ({
       style={floatOffset(index)}
       onClick={() => onClick(title, value, description, link, img)}
     >
-      {preview ? (
-        <img
-          src={preview}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          className="pointer-events-none absolute -bottom-3 -right-3 h-24 w-24 rounded-xl object-cover opacity-35 ring-1 ring-white/80 transition-opacity duration-200 group-hover:opacity-50 sm:h-28 sm:w-28"
-        />
-      ) : (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -bottom-4 -right-4 h-24 w-24 rounded-full bg-linear-to-br from-indigo-100 to-violet-200 opacity-80"
-        />
-      )}
+      <img
+        src={preview}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        onError={(event) => {
+          event.currentTarget.onerror = null
+          event.currentTarget.src = DEFAULT_CARD_IMAGE
+        }}
+        className="pointer-events-none absolute -bottom-3 -right-3 h-24 w-24 rounded-xl object-cover opacity-35 ring-1 ring-white/80 transition-opacity duration-200 group-hover:opacity-50 sm:h-28 sm:w-28"
+      />
 
       <div className="relative z-10 flex items-start justify-between gap-2 pr-16">
         <p

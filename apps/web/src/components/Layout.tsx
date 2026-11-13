@@ -2,8 +2,9 @@ import { cards } from '@ambik/catalog'
 import { useState } from 'react'
 import type { Card } from '../lib/card-ui'
 import { useModal } from '../hooks/useModal'
-import Attributions from './Attributions'
 import FloatingCard from './FloatingCard'
+import GodRays from './GodRays'
+import SiteFooter from './SiteFooter'
 import { Hero } from './Hero'
 import Modal from './Modal'
 import Navbar from './Navbar'
@@ -22,8 +23,9 @@ const Layout = () => {
   const selectedCard = cards.find((card) => card.title === modalData?.title)
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-[var(--color-surface)] via-indigo-50 to-violet-100">
-      <main className="relative mx-auto min-h-screen max-w-7xl px-4 pb-24 pt-6 sm:px-6 lg:px-8 lg:pb-16 lg:pt-28">
+    <div className="relative min-h-screen bg-linear-to-br from-[var(--color-surface)] via-indigo-50 to-violet-100">
+      <GodRays />
+      <main className="relative z-10 mx-auto min-h-screen max-w-7xl px-4 pb-24 pt-6 sm:px-6 lg:px-8 lg:pb-16 lg:pt-28">
         <Hero onCardSelect={(card: Card) => setSelectedCardTitle(card.title)} />
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-10 lg:grid-cols-3 xl:grid-cols-4">
@@ -47,8 +49,8 @@ const Layout = () => {
         </div>
       </main>
 
+      <SiteFooter />
       <Navbar />
-      <Attributions />
       <Modal
         isOpen={isOpen}
         onClose={closeModal}

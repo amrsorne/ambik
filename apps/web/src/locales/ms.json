@@ -15,6 +15,14 @@
   "try_button_title": "Cuba Sekarang",
   "try_button_subtitle": "Cuba aplikasi sekarang",
 
+  "footer": {
+    "tagline": "Ambik apa yang perlu.",
+    "legalNav": "Perundangan",
+    "privacy": "Privasi",
+    "terms": "Terma",
+    "pdpa": "PDPA / GDPR"
+  },
+
   "waitlist": {
     "invalid_email": "Sila masukkan email yang sah",
     "verify_human": "Sila sahkan anda adalah manusia",

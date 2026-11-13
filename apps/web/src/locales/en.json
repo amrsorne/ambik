@@ -15,6 +15,14 @@
   "try_button_title": "Cuba try test",
   "try_button_subtitle": "Cuba? Try? Test?",
 
+  "footer": {
+    "tagline": "Take what you need.",
+    "legalNav": "Legal",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "pdpa": "PDPA / GDPR"
+  },
+
   "waitlist": {
     "invalid_email": "Please enter a valid email",
     "verify_human": "Please verify you are human",
