@@ -15,6 +15,13 @@
   "try_button_title": "Cuba try test",
   "try_button_subtitle": "Cuba? Try? Test?",
 
+  "cta": {
+    "heading": "Ready to try it?",
+    "subtitle_live": "This project is live — open it in a new tab.",
+    "open_label": "Ambik",
+    "opens_new_tab": "Opens in a new tab"
+  },
+
   "footer": {
     "tagline": "Take what you need.",
     "legalNav": "Legal",
@@ -33,6 +40,9 @@
     "sending": "Sending...",
     "email_placeholder": "your@email.com",
     "thank_you_top": "Thank you for the submission!",
-    "thank_you_bottom": "Let's wait for the good news 🎉"
+    "thank_you_bottom": "Let's wait for the good news 🎉",
+    "subtitle_has_url": "Not live yet — join the waitlist and we'll let you know.",
+    "rate_limited": "Please wait a moment before trying again.",
+    "invalid_service": "This project cannot accept waitlist sign-ups right now."
   }
 }

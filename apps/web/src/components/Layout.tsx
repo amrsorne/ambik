@@ -4,7 +4,6 @@ import type { Card } from '../lib/card-ui'
 import { useModal } from '../hooks/useModal'
 import FloatingCard from './FloatingCard'
 import GodRays from './GodRays'
-import SiteFooter from './SiteFooter'
 import { Hero } from './Hero'
 import Modal from './Modal'
 import Navbar from './Navbar'
@@ -49,7 +48,6 @@ const Layout = () => {
         </div>
       </main>
 
-      <SiteFooter />
       <Navbar />
       <Modal
         isOpen={isOpen}

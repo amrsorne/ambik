@@ -15,6 +15,13 @@
   "try_button_title": "Cuba Sekarang",
   "try_button_subtitle": "Cuba aplikasi sekarang",
 
+  "cta": {
+    "heading": "Nak cuba?",
+    "subtitle_live": "Projek dah live — buka tab baru.",
+    "open_label": "Ambik",
+    "opens_new_tab": "Buka dalam tab baru"
+  },
+
   "footer": {
     "tagline": "Ambik apa yang perlu.",
     "legalNav": "Perundangan",
@@ -33,6 +40,9 @@
     "sending": "Menghantar...",
     "email_placeholder": "email@anda.com",
     "thank_you_top": "Terima kasih daun keladi",
-    "thank_you_bottom": "Nantikan berita gembira! 🎉"
+    "thank_you_bottom": "Nantikan berita gembira! 🎉",
+    "subtitle_has_url": "Belum live — join waitlist, nanti kami bagitau.",
+    "rate_limited": "Tunggu sekejap sebelum cuba lagi.",
+    "invalid_service": "Projek ini tak boleh terima waitlist buat masa ini."
   }
 }

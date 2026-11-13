@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
-import type { Card } from '../lib/card-ui'
+import { isLiveCard, type Card } from '../lib/card-ui'
 import { DEFAULT_CARD_IMAGE } from '../constants/images'
 import { useResolvedCardImage } from '../hooks/useResolvedCardImage'
 import Waitlist from './Waitlist'
@@ -99,7 +99,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, card }) => {
               )}
             </div>
 
-            <Waitlist url={card.link} src={src} service={card.service} />
+            <Waitlist
+              url={card.link}
+              src={src}
+              service={card.service}
+              canOpenProject={isLiveCard(card.value)}
+            />
           </div>
         </div>
       </div>

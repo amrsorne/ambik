@@ -1,7 +1,8 @@
 import type React from 'react'
 import { DEFAULT_CARD_IMAGE } from '../constants/images'
 import { useResolvedCardImage } from '../hooks/useResolvedCardImage'
-import { iconMap, type FloatingCardProps } from '../lib/card-ui'
+import { useRotatingGlowAngle } from '../hooks/useRotatingGlowAngle'
+import { iconMap, isLiveCard, type FloatingCardProps } from '../lib/card-ui'
 
 const floatOffset = (index: number) => {
   const n = index + 1
@@ -28,10 +29,18 @@ const FloatingCard: React.FC<FloatingCardProps> = ({
   const isActive = status === 'Active'
   const preview = useResolvedCardImage(img)
 
+  const isLive = isLiveCard(value)
+  const glowRef = useRotatingGlowAngle<HTMLButtonElement>(isLive)
+
   return (
     <button
+      ref={glowRef}
       type="button"
-      className={`group relative flex min-h-[6.25rem] w-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-[var(--color-border-soft)] bg-[var(--color-surface-elevated)]/90 p-4 text-left shadow-sm transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand)] motion-safe:animate-float ${className}`}
+      className={`group relative flex min-h-[6.25rem] w-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl p-4 text-left shadow-sm transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand)] motion-safe:animate-float ${
+        isLive
+          ? 'live-card-border hover:shadow-indigo-200/60'
+          : 'border border-[var(--color-border-soft)] bg-[var(--color-surface-elevated)]/90 hover:border-indigo-200'
+      } ${className}`}
       style={floatOffset(index)}
       onClick={() => onClick(title, value, description, link, img)}
     >
@@ -44,7 +53,11 @@ const FloatingCard: React.FC<FloatingCardProps> = ({
           event.currentTarget.onerror = null
           event.currentTarget.src = DEFAULT_CARD_IMAGE
         }}
-        className="pointer-events-none absolute -bottom-3 -right-3 h-24 w-24 rounded-xl object-cover opacity-35 ring-1 ring-white/80 transition-opacity duration-200 group-hover:opacity-50 sm:h-28 sm:w-28"
+        className={`pointer-events-none absolute -bottom-3 -right-3 h-24 w-24 rounded-xl object-cover ring-1 ring-white/80 transition-opacity duration-200 sm:h-28 sm:w-28 ${
+          isLive
+            ? 'opacity-60 group-hover:opacity-80'
+            : 'opacity-35 group-hover:opacity-50'
+        }`}
       />
 
       <div className="relative z-10 flex items-start justify-between gap-2 pr-16">

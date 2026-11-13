@@ -12,6 +12,11 @@ import {
 
 export type { Card, IconName }
 
+/** Status line contains “live” (e.g. Live!) — not “Prototype Ready” or Active alone. */
+export function isLiveCard(value: string): boolean {
+  return /\blive\b/i.test(value)
+}
+
 export const iconMap: Record<IconName, LucideIcon> = {
   target: Target,
   users: Users,

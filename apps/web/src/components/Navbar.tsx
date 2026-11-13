@@ -1,6 +1,7 @@
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import LegalNavLinks from './LegalNavLinks'
 
 const Navbar = () => {
   const { t, i18n } = useTranslation()
@@ -30,7 +31,8 @@ const Navbar = () => {
             </a>
           </div>
 
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center gap-4">
+            <LegalNavLinks />
             <div
               className="relative inline-flex items-center cursor-pointer"
               onClick={toggleLanguage}
@@ -47,7 +49,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="md:hidden">
+          <div className="flex items-center gap-2 md:hidden">
+            <LegalNavLinks className="max-w-[42vw] justify-end" />
             <div
               className="relative inline-flex items-center cursor-pointer top-1"
               onClick={toggleLanguage}
@@ -75,13 +78,19 @@ const Navbar = () => {
 
         {isMenuOpen && (
           <div className="md:hidden bg-white/95 backdrop-blur-xs rounded-b-lg shadow-lg">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+            <div className="space-y-1 px-2 pt-2 pb-3">
               <a
                 href="#benefits"
                 className="block px-3 py-2 text-gray-600 hover:text-gray-900"
               >
                 {t('about')}
               </a>
+              <div className="px-3 py-2">
+                <LegalNavLinks
+                  className="flex-col items-start gap-2"
+                  linkClassName="text-gray-600 hover:text-gray-900"
+                />
+              </div>
             </div>
           </div>
         )}

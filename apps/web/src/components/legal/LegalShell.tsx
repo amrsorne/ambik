@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from '@tanstack/react-router'
 import GodRays from '../GodRays'
-import SiteFooter from '../SiteFooter'
+import Navbar from '../Navbar'
 
 interface LegalShellProps {
   title: string
@@ -24,7 +24,7 @@ const LegalShell = ({ title, children }: LegalShellProps) => (
         {children}
       </article>
     </main>
-    <SiteFooter />
+    <Navbar />
   </div>
 )
 
