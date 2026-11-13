@@ -43,7 +43,8 @@ deploy_production:
       fi
     # VITE_* must be set in GitLab CI/CD variables (embedded at build time)
     - pnpm turbo build --filter=@ambik/web
-    - cd apps/web && pnpm exec wrangler d1 migrations apply ambik-stats --remote
+    # D1 migrations: run locally when schema changes (CI token may lack D1 API scope).
+    #   cd apps/web && pnpm exec wrangler d1 migrations apply ambik-stats --remote
     - cd apps/web && pnpm exec wrangler deploy --message "gitlab:${CI_COMMIT_SHORT_SHA} pipeline:${CI_PIPELINE_ID}"
   environment:
     name: production

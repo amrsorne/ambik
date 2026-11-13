@@ -25,7 +25,7 @@ Set on the **`ambik-web`** Worker via `wrangler secret put` (see [STATS.md](STAT
 - `SUPABASE_URL` — same host as `VITE_SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY` — for daily waitlist aggregates only
 
-After deploy, apply D1 migrations once (or in CI before deploy):
+When `apps/web/migrations/` changes, apply D1 from a machine logged in to Cloudflare (the GitLab API token may not include **D1 Edit**):
 
 `cd apps/web && pnpm exec wrangler d1 migrations apply ambik-stats --remote`
 
