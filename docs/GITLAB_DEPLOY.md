@@ -18,6 +18,17 @@ Go to **Settings → CI/CD → Variables** and add:
 
 Protected variables apply only to protected branches (keep **`main`** protected).
 
+### Stats cron (Worker secrets, not GitLab `VITE_*`)
+
+Set on the **`ambik-web`** Worker via `wrangler secret put` (see [STATS.md](STATS.md)):
+
+- `SUPABASE_URL` — same host as `VITE_SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY` — for daily waitlist aggregates only
+
+After deploy, apply D1 migrations once (or in CI before deploy):
+
+`cd apps/web && pnpm exec wrangler d1 migrations apply ambik-stats --remote`
+
 ### API token scope
 
 Create a custom token with at least:
