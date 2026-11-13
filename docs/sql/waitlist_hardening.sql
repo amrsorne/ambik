@@ -1,4 +1,4 @@
--- Ambik project ONLY (ref: yaxvexccccbftxxjmozs)
+-- Ambik project ONLY (ref: zwjcafxhvblzwejtzmsn)
 -- Do not run on MyTeam FC (pvzygsqpwtloukjiangz)
 
 -- Ensure waitlist table exists with expected columns (skip if already present)

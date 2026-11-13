@@ -11,6 +11,14 @@
   "join_waitlist_subtitle": "Dah siap nanti je awak orang first saya bagitau!",
   "join_waitlist_button": "Nak!!",
 
+  "modal": {
+    "close": "Tutup butiran projek",
+    "status_label": "Status",
+    "preview_alt": "Pratonton {{title}}",
+    "gallery_label": "Tangkapan skrin projek",
+    "select_image": "Tunjuk tangkapan skrin {{index}}"
+  },
+
   "try_button": "Ambik Try Test! 🚀",
   "try_button_title": "Cuba Sekarang",
   "try_button_subtitle": "Cuba aplikasi sekarang",
@@ -38,6 +46,9 @@
     "join_failed": "Gagal menyertai: ",
     "join_success": "🎉 Anda telah menyertai senarai menunggu!",
     "sending": "Menghantar...",
+    "email_label": "Alamat email",
+    "email_hint": "Kami guna ini untuk bagitau berita projek ini sahaja.",
+    "email_required": "Sila masukkan alamat email",
     "email_placeholder": "email@anda.com",
     "thank_you_top": "Terima kasih daun keladi",
     "thank_you_bottom": "Nantikan berita gembira! 🎉",

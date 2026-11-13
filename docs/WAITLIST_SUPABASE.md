@@ -6,10 +6,12 @@ Waitlist sign-ups from [ambik.link](https://ambik.link) must use the **Ambik** S
 
 | Project | Ref (URL host) | Use |
 |---------|----------------|-----|
-| **Ambik** | `yaxvexccccbftxxjmozs` | Yes — matches `VITE_SUPABASE_URL` in GitLab CI and `apps/web/.dev.vars` |
+| **Ambik** | `zwjcafxhvblzwejtzmsn` | Yes — matches `VITE_SUPABASE_URL` in GitLab CI and `apps/web/.dev.vars` |
 | MyTeam FC | `pvzygsqpwtloukjiangz` | **No** — do not point env vars or run migrations here |
 
-Before any SQL change: open Supabase **Project Settings → General** and confirm the reference ID.
+Before any SQL change: open Supabase **Project Settings → General** and confirm the reference ID is **`zwjcafxhvblzwejtzmsn`**.
+
+Legacy project `yaxvexccccbftxxjmozs` is **retired** for Ambik — do not point env vars at it.
 
 ## Apply database hardening
 
@@ -24,11 +26,11 @@ Documented in [GITLAB_DEPLOY.md](GITLAB_DEPLOY.md):
 
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY`
-- `VITE_CF_TURNSTILE_SITE_KEY`
+- `VITE_CF_TURNSTILE_SITE_KEY` — optional until Turnstile is re-enabled ([WAITLIST_TODO.md](WAITLIST_TODO.md))
 
-Turnstile is validated **in the browser only**; abuse resistance relies on RLS, uniqueness, and the insert throttle trigger in SQL.
+Abuse resistance relies on RLS, uniqueness, honeypot, and the insert throttle trigger in SQL.
 
 ## Client behavior
 
 - **Live** cards (status line contains “live”): open project link only.
-- **Non-live** cards: waitlist form (email, Turnstile, Join) even when a project URL exists.
+- **Non-live** cards: waitlist form (email + Join) even when a project URL exists.

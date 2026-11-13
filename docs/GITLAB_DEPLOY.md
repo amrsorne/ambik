@@ -12,9 +12,9 @@ Go to **Settings → CI/CD → Variables** and add:
 |----------|--------|-----------|--------|
 | `CLOUDFLARE_API_TOKEN` | yes | yes | [Edit Cloudflare Workers](https://developers.cloudflare.com/workers/ci-cd/external-cicd/gitlab-cicd/) permission on your account |
 | `CLOUDFLARE_ACCOUNT_ID` | no | yes | Account ID (same account as `ambik.link` zone) |
-| `VITE_SUPABASE_URL` | yes | yes | Same values as v1 Pages project |
-| `VITE_SUPABASE_ANON_KEY` | yes | yes | Public anon key |
-| `VITE_CF_TURNSTILE_SITE_KEY` | yes | yes | Turnstile site key |
+| `VITE_SUPABASE_URL` | yes | yes | `https://zwjcafxhvblzwejtzmsn.supabase.co` (Ambik — see [WAITLIST_SUPABASE.md](WAITLIST_SUPABASE.md)) |
+| `VITE_SUPABASE_ANON_KEY` | yes | yes | Anon key from that project (Settings → API) |
+| `VITE_CF_TURNSTILE_SITE_KEY` | yes | yes | Optional until Turnstile is re-enabled — see [WAITLIST_TODO.md](WAITLIST_TODO.md) |
 
 Protected variables apply only to protected branches (keep **`main`** protected).
 
