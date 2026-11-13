@@ -29,6 +29,12 @@ When `apps/web/migrations/` changes, apply D1 from a machine logged in to Cloudf
 
 `cd apps/web && pnpm exec wrangler d1 migrations apply ambik-stats --remote`
 
+### Worker deploy (D1 bindings)
+
+`wrangler deploy` may fail with Cloudflare API `[code: 10013]` when the Worker has a D1 binding. GitLab CI uses `wrangler versions upload` → `versions deploy @100%` → `triggers deploy` instead.
+
+**Deploy note:** `wrangler deploy` can fail with Cloudflare API `[code: 10013]` when the Worker has a D1 binding. GitLab CI uses `wrangler versions upload` → `versions deploy @100%` → `triggers deploy` instead.
+
 ### API token scope
 
 Create a custom token with at least:

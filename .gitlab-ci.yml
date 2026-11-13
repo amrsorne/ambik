@@ -45,7 +45,18 @@ deploy_production:
     - pnpm turbo build --filter=@ambik/web
     # D1 migrations: run locally when schema changes (CI token may lack D1 API scope).
     #   cd apps/web && pnpm exec wrangler d1 migrations apply ambik-stats --remote
-    - cd apps/web && pnpm exec wrangler deploy --message "gitlab:${CI_COMMIT_SHORT_SHA} pipeline:${CI_PIPELINE_ID}"
+    # wrangler deploy fails with API 10013 when D1 bindings present; use versions API.
+    - |
+      set -euo pipefail
+      cd apps/web
+      UPLOAD_OUT="$(pnpm exec wrangler versions upload --message "gitlab:${CI_COMMIT_SHORT_SHA} pipeline:${CI_PIPELINE_ID}" 2>&1 | tee /dev/stderr)"
+      VERSION_ID="$(printf '%s\n' "$UPLOAD_OUT" | sed -n 's/^Worker Version ID: //p' | head -1)"
+      if [ -z "$VERSION_ID" ]; then
+        echo "Could not parse Worker Version ID from wrangler versions upload"
+        exit 1
+      fi
+      pnpm exec wrangler versions deploy "${VERSION_ID}@100%" --yes
+      pnpm exec wrangler triggers deploy
   environment:
     name: production
     url: https://ambik.link
