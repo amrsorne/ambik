@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Turnstile from 'react-turnstile'
+import { Turnstile } from 'react-turnstile'
 import { toast } from 'react-toastify'
 import { supabase } from '../data/SupabaseClient'
 import {
