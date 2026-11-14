@@ -46,4 +46,5 @@ $$;
 
 revoke all on function public.stats_waitlist_public() from public;
 revoke all on function public.stats_waitlist_public() from anon, authenticated;
+-- Postgres role `service_role` (used by Secret API keys — not the deprecated service_role JWT).
 grant execute on function public.stats_waitlist_public() to service_role;

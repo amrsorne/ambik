@@ -13,7 +13,7 @@ Go to **Settings → CI/CD → Variables** and add:
 | `CLOUDFLARE_API_TOKEN` | yes | yes | [Edit Cloudflare Workers](https://developers.cloudflare.com/workers/ci-cd/external-cicd/gitlab-cicd/) permission on your account |
 | `CLOUDFLARE_ACCOUNT_ID` | no | yes | Account ID (same account as `ambik.link` zone) |
 | `VITE_SUPABASE_URL` | yes | yes | `https://zwjcafxhvblzwejtzmsn.supabase.co` (Ambik — see [WAITLIST_SUPABASE.md](WAITLIST_SUPABASE.md)) |
-| `VITE_SUPABASE_ANON_KEY` | yes | yes | Anon key from that project (Settings → API) |
+| `VITE_SUPABASE_ANON_KEY` | yes | yes | **Publishable** key (`sb_publishable_…`) — see [Supabase API keys](https://supabase.com/docs/guides/getting-started/api-keys) |
 | `VITE_CF_TURNSTILE_SITE_KEY` | yes | yes | Optional until Turnstile is re-enabled — see [WAITLIST_TODO.md](WAITLIST_TODO.md) |
 
 Protected variables apply only to protected branches (keep **`main`** protected).
@@ -22,8 +22,8 @@ Protected variables apply only to protected branches (keep **`main`** protected)
 
 Set on the **`ambik-web`** Worker via `wrangler secret put` (see [STATS.md](STATS.md)):
 
-- `SUPABASE_URL` — same host as `VITE_SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY` — for daily waitlist aggregates only
+- `SUPABASE_URL` — same host as `VITE_SUPABASE_URL` (already set on production Worker)
+- `SUPABASE_SECRET_KEY` — Ambik **Secret key** (`sb_secret_…`); server-only, for the daily `stats_waitlist_public` RPC ([API keys](https://supabase.com/docs/guides/getting-started/api-keys)). Do **not** use legacy `service_role` JWT keys (`eyJ…`).
 
 When `apps/web/migrations/` changes, apply D1 from a machine logged in to Cloudflare (the GitLab API token may not include **D1 Edit**):
 

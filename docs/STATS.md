@@ -21,17 +21,24 @@ Public aggregate metrics at **https://ambik.link/stats**. No PII is stored in D1
    pnpm exec wrangler d1 migrations apply ambik-stats --remote
    ```
 
-2. **Supabase SQL** — run [`sql/stats_public_aggregate.sql`](sql/stats_public_aggregate.sql) in the Ambik project SQL editor.
+2. **Supabase SQL** — run [`sql/stats_public_aggregate.sql`](sql/stats_public_aggregate.sql) in the Ambik project SQL editor. The RPC grants **execute** to the Postgres role `service_role` (that role is what Secret keys use; it is not the deprecated `service_role` *API key*).
 
 3. **Worker secrets** (never `VITE_*`):
+
+   Follow [Supabase API keys](https://supabase.com/docs/guides/getting-started/api-keys): **Publishable** (`sb_publishable_…`) in the browser, **Secret** (`sb_secret_…`) on servers. Legacy JWT `anon` / `service_role` API keys are deprecated (retiring by end of 2026).
+
+   | Worker secret | Value |
+   |---------------|--------|
+   | `SUPABASE_URL` | `https://zwjcafxhvblzwejtzmsn.supabase.co` |
+   | `SUPABASE_SECRET_KEY` | Settings → **API Keys** → Secret key (`sb_secret_…`) |
 
    ```bash
    cd apps/web
    pnpm exec wrangler secret put SUPABASE_URL
-   pnpm exec wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+   pnpm exec wrangler secret put SUPABASE_SECRET_KEY
    ```
 
-   Use the same project URL as `VITE_SUPABASE_URL`; service role key from **Settings → API**.
+   Production: `SUPABASE_URL` is already on `ambik-web`. Add `SUPABASE_SECRET_KEY` when you have the Secret key from the dashboard (Settings → API Keys, not the legacy JWT block).
 
 4. **GitLab CI** — optional remote migrate on deploy (add after `wrangler deploy`):
 

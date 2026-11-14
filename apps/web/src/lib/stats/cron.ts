@@ -17,15 +17,15 @@ type DayCountRow = { day: string; count: number }
 
 async function fetchWaitlistAggregates(
   supabaseUrl: string | undefined,
-  serviceRoleKey: string | undefined,
+  secretKey: string | undefined,
 ): Promise<WaitlistRpcResult | null> {
-  if (!supabaseUrl || !serviceRoleKey) return null
+  if (!supabaseUrl || !secretKey) return null
 
   const res = await fetch(`${supabaseUrl}/rest/v1/rpc/stats_waitlist_public`, {
     method: 'POST',
     headers: {
-      apikey: serviceRoleKey,
-      Authorization: `Bearer ${serviceRoleKey}`,
+      // Secret keys are not JWTs — use apikey per Supabase API keys guide.
+      apikey: secretKey,
       'Content-Type': 'application/json',
     },
     body: '{}',
@@ -121,7 +121,7 @@ export async function runDailyStatsJob(env: Cloudflare.Env): Promise<void> {
 
   const waitlist = await fetchWaitlistAggregates(
     env.SUPABASE_URL,
-    env.SUPABASE_SERVICE_ROLE_KEY,
+    env.SUPABASE_SECRET_KEY,
   )
 
   const signupsDaily = zeroFillDailySeries(
